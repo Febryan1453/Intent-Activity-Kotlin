@@ -16,6 +16,7 @@ class MoveObjectActivity : AppCompatActivity() {
 
         //Tangkap data dengan key
         val siswa = intent.getParcelableExtra<Siswa>("siswa")
+        
         if (siswa != null){
             binding.tvNama.text = siswa.nama
             binding.tvUmur.text = siswa.umur.toString()
@@ -23,6 +24,14 @@ class MoveObjectActivity : AppCompatActivity() {
             binding.tvKelas.text = siswa.kelas
             binding.tvLulus.text = if (siswa.lulus) "Lulus" else "Belum Lulus"
             binding.tvTinggi.text = siswa.tinggiBadan.toString()
+        }
+        
+        binding.btnCall.setText("Hubungi ${siswa?.nama}")
+
+        binding.btnCall.setOnClickListener {
+            val i = Intent(Intent.ACTION_DIAL)
+            i.data = Uri.parse("tel:${siswa?.telp}")
+            startActivity(i)
         }
 
     }
